@@ -34,6 +34,12 @@ public class DataItemDaoImpl implements DataItemDao {
         return dataItemByJourneyID;
     }
 
+    //new
+    public List<DataItem> getAllByLocation(double lon, double lat){
+        List<DataItem> dataItems=dataItemRepository.getAllByLocation(lon,lat);
+        return dataItems;
+    }
+
     @Autowired
     Gson gson;
 

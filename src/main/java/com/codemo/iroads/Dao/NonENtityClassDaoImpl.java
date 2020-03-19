@@ -79,4 +79,11 @@ public class NonENtityClassDaoImpl implements NonEntityClassDao {
         return manualTags;
     }
 
+    @Override
+    public List<JsonObject> getAllByLocation(double lon,double lat){
+        List<JsonObject> commonFormat = nonEntityClassRepository.getAllByLocation(lon,lat);
+        return commonFormat;
+
+    }
+
 }

@@ -35,4 +35,6 @@ public interface NonEntityClassDao {
     List<ColorRange> getAllColorRanges();
 
     List<TagsWithName> getManualTags();
+
+    List<JsonObject> getAllByLocation(double lon,double lat);
 }

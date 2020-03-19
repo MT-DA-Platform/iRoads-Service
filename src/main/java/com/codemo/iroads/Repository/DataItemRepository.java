@@ -23,4 +23,9 @@ public interface DataItemRepository extends CouchbaseRepository<DataItem, String
     @Query("#{#n1ql.selectEntity} where dataType ='data_item' and journeyID= $1 order by time")
     List<DataItem> getDataItemByJourneyID(String journeyID);
 
+    ///new
+    ///getAllByLocation
+    @Query("#{#n1ql.selectEntity} where dataType ='data_item' and lon=$1 and lat= $2 order by time")
+    List<DataItem> getAllByLocation(Double lon, Double lat);
+
 }
