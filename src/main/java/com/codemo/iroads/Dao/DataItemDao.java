@@ -16,6 +16,8 @@ public interface DataItemDao {
 
     List<DataItem> getDataItemByJourneyID(String journeyID);
 
+    List<DataItem> getAllByLocation(double lon, double lat);
+
     List<DataItem> getDummy();
 
 

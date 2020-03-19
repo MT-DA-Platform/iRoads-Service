@@ -1,6 +1,7 @@
 package com.codemo.iroads.Service;
 
 import com.codemo.iroads.Domain.*;
+import com.couchbase.client.java.document.json.JsonObject;
 
 import java.util.List;
 
@@ -27,5 +28,7 @@ public interface NonEntityClassService {
     List<TagsWithName> getTagsWithNames();
 
     List<ColorRange> getAllColorRanges();
+
+    List<JsonObject> getAllByLocation(double lon, double lat);
 
 }

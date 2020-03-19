@@ -1,6 +1,7 @@
 package com.codemo.iroads.Repository;
 
 import com.codemo.iroads.Domain.*;
+import com.codemo.iroads.Util.IConstants;
 import com.couchbase.client.java.document.json.JsonObject;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +15,7 @@ public class NonEntityClassRepository extends AbstractN1qlRunner{
 
     public List<JsonObject> getJourneyIds(){
 
-        String query="select i.journeyID from iroads i where journeyID is not missing and dataType='data_item' group by i.journeyID";
+        String query="select i.jour neyID from iroads i where journeyID is not missing and dataType='data_item' group by i.journeyID";
         return getJsonArray(query);
     }
 
@@ -84,4 +85,13 @@ public class NonEntityClassRepository extends AbstractN1qlRunner{
         String query="select journeyID,journeyName,tags from iroads where dataType='manual_tag';";
         return getEntityArray(query,TagsWithName.class);
     }
+
+    //getAllByLocation//Newly Added service
+    public List<JsonObject> getAllByLocation(double lon,double lat){
+        String query = "select acceX, acceX_raw,acceY,acceY_raw,acceZ,acceZ_raw,dataType,gpsSpeed,gyroX,gyroY,gyroZ,imei,journeyID,lat,lon,magnetX,magnetY,magnetZ,obdRpm,obdSpeed,time from iroads where journeyID is not missing and lon<'"+(lon+IConstants.LongitudeOffSet) +"' and lon>'"+ (lon-IConstants.LongitudeOffSet) +"' and lat<'"+(lat+IConstants.LatitudeOffSet) +"' and lat>'"+ (lat-IConstants.LatitudeOffSet) +"'";
+        List<JsonObject> commonFormatJson = getJsonArray(query);
+        return commonFormatJson;//commonFormat
+
+    }
+
 }

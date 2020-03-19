@@ -28,4 +28,6 @@ public interface DataItemService {
     List<DataItem> getAverageFilterdData(String journeyID);
 
     SegmentInfoWrapper getJourneySegments(String journeyID, double lat, double lon, double threshold,int segmentLength);
+
+
 }

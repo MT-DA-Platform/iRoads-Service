@@ -98,4 +98,9 @@ public class NonEntityClassServiceImpl implements NonEntityClassService {
         List<ColorRange> allColorRanges = nonEntityClassDao.getAllColorRanges();
         return allColorRanges;
     }
+    @Override
+    public List<JsonObject> getAllByLocation(double lon, double lat){
+        List<JsonObject> commonFormat = nonEntityClassDao.getAllByLocation(lon,lat);
+        return commonFormat;
+    }
 }

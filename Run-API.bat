@@ -1,0 +1,1 @@
+java -jar target/iroads-0.0.1-SNAPSHOT.jar

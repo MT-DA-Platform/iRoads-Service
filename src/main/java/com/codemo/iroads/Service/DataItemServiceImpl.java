@@ -54,6 +54,7 @@ public class DataItemServiceImpl implements DataItemService {
         return dataItems;
     }
 
+
     @Override
     public String getAccelerationGraphDataByJourneyID(String journeyID, int splitBy) {
         List<DataItem> dataItems= dataItemDao.getDataItemByJourneyID(journeyID);

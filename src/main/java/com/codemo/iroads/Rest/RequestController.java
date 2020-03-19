@@ -1,13 +1,21 @@
 package com.codemo.iroads.Rest;
 
 import com.codemo.iroads.Domain.*;
+import com.codemo.iroads.Domain.commonFormat.CommonFormat;
+import com.codemo.iroads.Domain.commonFormat.DataType;
+import com.codemo.iroads.Domain.commonFormat.Location;
+import com.codemo.iroads.Domain.commonFormat.Record;
 import com.codemo.iroads.Service.DataItemService;
 import com.codemo.iroads.Service.IRIService;
 import com.codemo.iroads.Service.NonEntityClassService;
 import com.codemo.iroads.Service.PredictionService;
 import com.codemo.iroads.Util.Util;
+import com.couchbase.client.java.document.json.JsonObject;
+import com.google.gson.Gson;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +32,9 @@ import java.util.List;
 
 @RestController
 public class RequestController {
+
+    Gson gson = new Gson();
+    Logger logger = LogManager.getLogger(RequestController.class);
 
     @Autowired
     DataItemService  dataItemService;
@@ -54,7 +66,7 @@ public class RequestController {
     @RequestMapping("/getByjourneyID")
     public List<DataItem> getDataItemByJourneyID(@RequestParam("journeyID") String journeyID){
         return dataItemService.getDataItemByJourneyID(journeyID);
-    }
+}
 
     @RequestMapping("/getLocationsByjourneyID")
     public String getLocationsByjourneyID(@RequestParam("journeyID") String journeyID){
@@ -158,5 +170,60 @@ public class RequestController {
 //    public List<DataItem> getAll(){
 //        return dataItemService.getAll();
 //    }
+
+
+    //new
+    //getAllByLocation
+    @RequestMapping("/getAllByLocation")
+    public CommonFormat getAllByLocation(@RequestParam("lon") String lon, @RequestParam("lat") String lat){
+        //todo format data
+        CommonFormat commonFormat = new CommonFormat();
+
+        Location location = new Location();
+        location.setLongitude(Double.parseDouble(lon));
+        location.setLatitude(Double.parseDouble(lat));
+        location.setName("");
+
+        commonFormat.setLocation(location);
+
+        DataType dataType = new DataType();
+        dataType.setType("iroads-data");
+        dataType.setSubtype("location data");
+
+        commonFormat.setType(dataType);
+
+        List<JsonObject> dataItems = nonEntityClassService.getAllByLocation(Double.parseDouble(lon),Double.parseDouble(lat));
+        List<Record> records = new ArrayList<Record>();
+        for(JsonObject object : dataItems){
+            Record record = populateRecord(object);
+            records.add(record);
+        }
+
+        commonFormat.setRecords(records);
+        logger.info("getAllByLocation lon ="+lon+"and lat ="+lat+" : ",gson.toJson(commonFormat));
+        return commonFormat;
+    }
+
+    Record populateRecord(JsonObject object){
+        Record record = new Record();
+        record.setAcceX(object.getDouble("acceX"));
+        record.setAcceX_raw(object.getString("acceX_raw"));
+        record.setAcceY(object.getDouble("acceY"));
+        record.setAcceY_raw(object.getString("acceY_raw"));
+        record.setAcceZ(object.getDouble("acceZ"));
+        record.setAcceZ_raw(object.getString("acceZ_raw"));
+        record.setGpsSpeed(object.getDouble("gpsSpeed"));
+        record.setGyroX(object.getString("gyroX"));
+        record.setGyroY(object.getString("gyroY"));
+        record.setGyroZ(object.getString("gyroZ"));
+        record.setLat(object.getString("lat"));
+        record.setLon(object.getString("lon"));
+        record.setMagnetX(object.getString("magnetX"));
+        record.setMagnetY(object.getString("magnetY"));
+        record.setMagnetZ(object.getString("magnetZ"));
+        record.setObdRpm(object.getString("obdRpm"));
+        record.setTime(object.getLong("time"));
+        return record;
+    }
 
 }

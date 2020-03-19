@@ -9,9 +9,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by dushan on 5/4/18.
- */
+
 public class Util {
 
 
@@ -328,7 +326,7 @@ public class Util {
     public static  List<JsonObject> getWelcomeJson(){
 
         List<JsonObject> msg=new ArrayList<>();
-
+        JsonObject metghod21=JsonObject.create().put("function","get Data for Location").put("path","/getAllByLocation?lon=Longitude&lat=Latitude");
         JsonObject metghod1=JsonObject.create().put("function","get journey IDs").put("path","/getJourneyIDs");
         JsonObject metghod2=JsonObject.create().put("function","get journey Names with ID").put("path","/getJourneyNames");
         JsonObject metghod3=JsonObject.create().put("function","get data according to journey ID").put("path","/getByjourneyID?journeyID=requiredId");
@@ -352,7 +350,7 @@ public class Util {
         JsonObject metghod20=JsonObject.create().put("function","get color ranges for visualization").put("path","/getColorRanges");
 
         //        JsonObject metghod11=JsonObject.create().put("function","get all data").put("path","/getAll");
-
+        msg.add(metghod21);
         msg.add(metghod1);
         msg.add(metghod2);
         msg.add(metghod3);
