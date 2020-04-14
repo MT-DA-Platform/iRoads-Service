@@ -15,7 +15,7 @@ public class NonEntityClassRepository extends AbstractN1qlRunner{
 
     public List<JsonObject> getJourneyIds(){
 
-        String query="select i.jour neyID from iroads i where journeyID is not missing and dataType='data_item' group by i.journeyID";
+        String query="select i.journeyID from iroads i where journeyID is not missing and dataType='data_item' group by i.journeyID";
         return getJsonArray(query);
     }
 
