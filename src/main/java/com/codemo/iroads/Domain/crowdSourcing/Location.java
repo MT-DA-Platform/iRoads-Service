@@ -16,6 +16,6 @@ public class Location {
     @Field
     private double latitude;
     @Field
-    private long timeStamp;
+    private long timestamp;
 
 }
