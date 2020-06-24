@@ -108,10 +108,11 @@ public class RequestController {
         return nonEntityClassService.getAllTaggedJourneys();
     }
 
-    @RequestMapping("/getAllTags")
-    public List<LatLonTag> getAllTags(){
+    @RequestMapping("/getRoadAnomalies")
+    public List<LatLonTag> getRoadAnomalies(){
         return nonEntityClassService.getAllTaggs();
     }
+
 
     @RequestMapping("/getJourneySegments")
     public SegmentInfoWrapper getAllTags(@RequestParam("journeyID") String journeyID,@RequestParam("lat") double lat,@RequestParam("lon") double lon,@RequestParam(value = "threshold",defaultValue = "1.0") Double threshold,@RequestParam(value = "segmentLength",defaultValue = "100") Integer segmentLength){

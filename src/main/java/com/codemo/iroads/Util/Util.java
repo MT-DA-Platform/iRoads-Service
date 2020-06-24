@@ -337,7 +337,7 @@ public class Util {
         JsonObject metghod8=JsonObject.create().put("function","get tagged ids").put("path","/getTaggedIds");
         JsonObject metghod9=JsonObject.create().put("function","get tagged names").put("path","/getTaggedNames");
         JsonObject metghod10=JsonObject.create().put("function","get tagged Bumps and Potholes").put("path","/getTags?journeyID=requiredId");
-        JsonObject metghod11=JsonObject.create().put("function","get all tagged Bumps and Potholes").put("path","/getAllTags");
+        JsonObject metghod11=JsonObject.create().put("function","get all tagged Bumps and Potholes").put("path","/getRoadANomalies");
 
         JsonObject metghod12=JsonObject.create().put("function","get average filtered data").put("path","/getAverageByjourneyID?journeyID=requiredId");
         JsonObject metghod13=JsonObject.create().put("function","get summary on database").put("path","/getSummary");
