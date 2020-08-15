@@ -17,5 +17,15 @@ public class Location {
     private double latitude;
     @Field
     private long timestamp;
+    @Field
+    private double speed;
+    @Field
+    private int speedDirection;
+    @Field
+    private double accelerationX;
+    @Field
+    private double accelerationY;
+    @Field
+    private double accelerationZ;
 
 }
